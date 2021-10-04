@@ -5,6 +5,9 @@ from json import dumps
 from django.http import HttpResponse
 import datetime
 import feedparser
+
+
+BASE_URL = 'http://127.0.0.1:8000'
 # Create your views here.
 
 freq_list = {
@@ -34,12 +37,19 @@ def get_video(request):
 def get_photo(request):
     photo_list = Photo.objects.all()
     photos = []
-    response = {'url': ''}
+    response = {
+        'url': '',
+        'text_before': '',
+        'text_after': ''
+    }
     for photo in photo_list:
         if photo.is_enabled:
-            photos.append(photo.photo_url)
+            photos.append(photo)
     try:
-        response['url'] = choice(photos)
+        data = choice(photos)
+        response['url'] = BASE_URL + data.photo.url
+        response['text_before'] = data.text_before
+        response['text_after'] = data.text_after
     except:
         pass
     return HttpResponse(dumps(response))
@@ -49,6 +59,6 @@ def get_feed(request):
     response = ""
     d = feedparser.parse('http://www.psu.ru/news?format=feed&type=rss')
     feed = choice(d.entries)
-    response += "<h1>"+feed.title+"</h1>"
-    response += feed.description
+    response += "<h1 align=center>"+feed.title+"</h1>"
+    response += "<h3><div style='margin-left: 16px;'>"+feed.description+"</div><h3>"
     return HttpResponse(response)

@@ -30,7 +30,11 @@ class PhotoAdmin(admin.ModelAdmin):
     )
     list_display = (
         'title',
-        'photo_url',
+        'photo',
+        'is_enabled',
+    )
+    list_editable = (
+        'is_enabled',
     )
     list_display_links = (
         'title',

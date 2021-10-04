@@ -32,7 +32,9 @@ class Photo(models.Model):
         verbose_name_plural = 'Фото'
 
     title = models.CharField(max_length=64, verbose_name='Заголовок')
-    photo_url = models.URLField(verbose_name='Ссылка на фото', null=True, blank=False)
+    photo = models.FileField(verbose_name='Картинка', upload_to='', null=True, blank=False)
+    text_before = models.CharField(max_length=128, verbose_name='Текст над картинкой (128 символов максимум)', null=True, blank=True)
+    text_after = models.CharField(max_length=64, verbose_name='Текст под картинкой (64 символа максимум)', null=True, blank=True)
     is_enabled = models.BooleanField(verbose_name='Показывать?', default=True, null=False, blank=False)
 
     def __str__(self):
