@@ -55,10 +55,14 @@ def get_photo(request):
     return HttpResponse(dumps(response))
 
 
-def get_feed(request):
-    response = ""
+def get_running_string(request):
+    response = {'string':''}
     d = feedparser.parse('http://www.psu.ru/news?format=feed&type=rss')
-    feed = choice(d.entries)
-    response += "<h1 align=center>"+feed.title+"</h1>"
-    response += "<h3><div style='margin-left: 16px;'>"+feed.description+"</div><h3>"
-    return HttpResponse(response)
+    feeds = ""
+    for f in d.entries:
+        # print(f.title)
+        feeds += " • " + str(f.title)
+    feeds += " • "
+    response['string'] = feeds
+    # print(feeds)
+    return HttpResponse(dumps(response))
