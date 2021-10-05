@@ -3,6 +3,7 @@
 ```
 git clone https://github.com/lemonbro627/watcher_back
 cd watcher_back
+pip3 install -r requirements.txt
 python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
