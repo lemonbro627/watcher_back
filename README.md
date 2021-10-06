@@ -1,4 +1,4 @@
-# Wathcer Backend
+# Watcher Backend
 ## First run
 ```
 git clone https://github.com/lemonbro627/watcher_back

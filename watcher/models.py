@@ -24,19 +24,3 @@ class Video(models.Model):
 
     def __str__(self):
         return self.title
-
-
-class Photo(models.Model):
-    class Meta:
-        verbose_name = 'Фото'
-        verbose_name_plural = 'Фото'
-
-    title = models.CharField(max_length=64, verbose_name='Заголовок')
-    photo = models.FileField(verbose_name='Картинка (height 620px, wight 420px)', upload_to='', null=True, blank=False)
-    text_before = models.CharField(max_length=128, verbose_name='Текст над картинкой (128 символов максимум)', null=True, blank=True)
-    text_after = models.CharField(max_length=64, verbose_name='Текст под картинкой (64 символа максимум)', null=True, blank=True)
-    is_enabled = models.BooleanField(verbose_name='Показывать?', default=True, null=False, blank=False)
-
-    def __str__(self):
-        return self.title
-

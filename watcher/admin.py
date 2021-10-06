@@ -24,22 +24,4 @@ class VideoAdmin(admin.ModelAdmin):
     )
 
 
-class PhotoAdmin(admin.ModelAdmin):
-    readonly_fields = (
-        'id',
-    )
-    list_display = (
-        'title',
-        'photo',
-        'is_enabled',
-    )
-    list_editable = (
-        'is_enabled',
-    )
-    list_display_links = (
-        'title',
-    )
-
-
 admin.site.register(Video, VideoAdmin)
-admin.site.register(Photo, PhotoAdmin)

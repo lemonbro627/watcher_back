@@ -1,4 +1,4 @@
-from django.shortcuts import render
+# from django.shortcuts import render
 from .models import *
 from random import choice
 from json import dumps
@@ -34,35 +34,14 @@ def get_video(request):
     return HttpResponse(dumps(response))
 
 
-def get_photo(request):
-    photo_list = Photo.objects.all()
-    photos = []
-    response = {
-        'url': '',
-        'text_before': '',
-        'text_after': ''
-    }
-    for photo in photo_list:
-        if photo.is_enabled:
-            photos.append(photo)
-    try:
-        data = choice(photos)
-        response['url'] = BASE_URL + data.photo.url
-        response['text_before'] = data.text_before
-        response['text_after'] = data.text_after
-    except:
-        pass
-    return HttpResponse(dumps(response))
-
-
-def get_running_string(request):
-    response = {'string':''}
+def get_news_of_day(request):
+    response = {'string': 'null'}
     d = feedparser.parse('http://www.psu.ru/news?format=feed&type=rss')
-    feeds = ""
-    for f in d.entries:
-        # print(f.title)
-        feeds += " • " + str(f.title)
-    feeds += " • "
-    response['string'] = feeds
-    # print(feeds)
+    feeds = [d.entries[0].title, d.entries[1].title, d.entries[2].title]
+    response['string'] = choice(feeds)
     return HttpResponse(dumps(response))
+
+
+def index(request):
+    response = '0'
+    return HttpResponse(response)
