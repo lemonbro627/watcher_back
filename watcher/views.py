@@ -42,6 +42,10 @@ def get_news_of_day(request):
     return HttpResponse(dumps(response))
 
 
+def status(request):
+    return HttpResponse('ok')
+
+
 def index(request):
     response = '0'
     return HttpResponse(response)
