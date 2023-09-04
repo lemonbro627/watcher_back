@@ -15,13 +15,29 @@ class VideoAdmin(admin.ModelAdmin):
         'freq',
         'video_url',
         'is_enabled',
+        'is_fullscreen',
     )
     list_display_links = (
         'title',
     )
     list_editable = (
         'is_enabled',
+        'is_fullscreen',
+    )
+
+
+class VideoPanelAdmin(admin.ModelAdmin):
+    readonly_fields = (
+        'id',
+    )
+    list_display = (
+        'title',
+        'IP',
+    )
+    list_display_links = (
+        'title',
     )
 
 
 admin.site.register(Video, VideoAdmin)
+admin.site.register(VideoPanel, VideoPanelAdmin)

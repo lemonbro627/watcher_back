@@ -2,3 +2,5 @@ db.sqlite3
 .idea
 templates
 media
+venv
+package*
