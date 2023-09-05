@@ -13,7 +13,6 @@ class VideoAdmin(admin.ModelAdmin):
         'start_date',
         'end_date',
         'freq',
-        'video_url',
         'is_enabled',
         'is_fullscreen',
         'for_rector',
@@ -24,6 +23,7 @@ class VideoAdmin(admin.ModelAdmin):
     list_editable = (
         'is_enabled',
         'is_fullscreen',
+        'for_rector',
     )
 
 
