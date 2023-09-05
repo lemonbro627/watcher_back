@@ -34,6 +34,7 @@ class Video(models.Model):
     panels = models.ManyToManyField(verbose_name='На каких панелях отображать?', to=VideoPanel, related_name='панель')
     is_enabled = models.BooleanField(verbose_name='Показывать?', default=True, null=False, blank=False)
     is_fullscreen = models.BooleanField(verbose_name='Разворачивать на весь экран?', default=False, null=False, blank=False)
+    for_rector = models.BooleanField(verbose_name='Для ректора?', default=False, null=False, blank=False)
 
     def __str__(self):
         return self.title

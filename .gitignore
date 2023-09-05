@@ -3,4 +3,5 @@ db.sqlite3
 templates
 media
 venv
-package*
+package.json
+package-lock.json

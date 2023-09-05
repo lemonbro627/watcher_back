@@ -20,23 +20,28 @@ freq_list = {
 
 
 def get_video(request):
-    response = {'url': 'https://media.psu.ru/www.psu.ru/video/infopanel/2021/univer-2021.mp4', 'fullscreen': 'false'}
+    response = {'url': 'https://media.psu.ru/www.psu.ru/video/infopanel/2021/univer-2021.mp4', 'is_fullscreen': 'false'}
 
-    ip = request.META.get('REMOTE_ADDR')
+    ip = request.META.get('HTTP_X_REAL_IP')
+    print(f'Client IP addr: {ip}')
     video_list = Video.objects.all()
     videos_by_panels = []
+    videos_for_rector = []
     for video in video_list:
-        # print(f'Name: {video.title}, URL: {video.video_url}')
         allowed = [panel.IP for panel in video.panels.all()]
-        print(allowed)
         if video.is_enabled and video.start_date <= datetime.date.today() <= video.end_date and ip in allowed:
             for x in range(0, freq_list[video.freq]):
-                videos_by_panels.append({"url": video.video_url, "fullscreen":video.is_fullscreen})
+                videos_by_panels.append({"url": video.video_url, "is_fullscreen": video.is_fullscreen})
+        if video.is_enabled and video.start_date <= datetime.date.today() <= video.end_date and video.for_rector:
+            videos_for_rector.append({"url": video.video_url, "is_fullscreen": True})
     try:
-        video = choice(videos_by_panels)
-        response = video
+        if ip == '10.10.50.101' and len(videos_for_rector) > 0:
+            response = choice(videos_for_rector)
+        else:
+            response = choice(videos_by_panels)
     except:
         pass
+    print(f'Client: {ip}, Response: {response}')
     return HttpResponse(dumps(response))
 
 
@@ -53,6 +58,6 @@ def status(request):
 
 
 def index(request):
-    ip = request.META.get('REMOTE_ADDR')
+    ip = request.META.get('HTTP_X_REAL_IP')
     response = ip
     return HttpResponse(response)

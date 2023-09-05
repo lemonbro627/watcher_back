@@ -16,6 +16,7 @@ class VideoAdmin(admin.ModelAdmin):
         'video_url',
         'is_enabled',
         'is_fullscreen',
+        'for_rector',
     )
     list_display_links = (
         'title',
