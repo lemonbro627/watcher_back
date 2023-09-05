@@ -8,6 +8,8 @@ class VideoAdmin(admin.ModelAdmin):
     readonly_fields = (
         'id',
     )
+    ordering = ["-is_enabled"]
+    search_fields = ("title","is_enabled","for_rector","is_fullscreen")
     list_display = (
         'title',
         'start_date',
