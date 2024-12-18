@@ -1,5 +1,8 @@
+from django.utils import timezone
 from django.db import models
-import datetime
+
+
+
 # Create your models here.
 
 class VideoPanel(models.Model):
@@ -27,13 +30,18 @@ class Video(models.Model):
         verbose_name_plural = 'Видео'
 
     title = models.CharField(max_length=64, verbose_name='Заголовок')
-    start_date = models.DateField(verbose_name='Дата начала показа (включая)', default=datetime.date.today(), null=False, blank=False, editable=True)
-    end_date = models.DateField(verbose_name='Дата конца паказа(включая)', default=datetime.date.today(), null=False, blank=False, editable=True)
-    freq = models.CharField(max_length=9, choices=VideoFreq, default='MID', verbose_name='Частота показа', null=False, blank=False)
+    start_date = models.DateField(verbose_name='Дата начала показа (включая)', default=timezone.now,
+                                  null=False, blank=False, editable=True)
+    end_date = models.DateField(verbose_name='Дата конца паказа(включая)',
+                                default=timezone.now() + timezone.timedelta(days=14), null=False,
+                                blank=False, editable=True)
+    freq = models.CharField(max_length=9, choices=VideoFreq, default='MID', verbose_name='Частота показа', null=False,
+                            blank=False)
     video_url = models.URLField(verbose_name='Ссылка на видео (только прямые ссылки на mp4)', null=True, blank=False)
     panels = models.ManyToManyField(verbose_name='На каких панелях отображать?', to=VideoPanel, related_name='панель')
     is_enabled = models.BooleanField(verbose_name='Показывать?', default=True, null=False, blank=False)
-    is_fullscreen = models.BooleanField(verbose_name='Разворачивать на весь экран?', default=False, null=False, blank=False)
+    is_fullscreen = models.BooleanField(verbose_name='Разворачивать на весь экран?', default=False, null=False,
+                                        blank=False)
     for_rector = models.BooleanField(verbose_name='Для ректора?', default=False, null=False, blank=False)
 
     def __str__(self):
