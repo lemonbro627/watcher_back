@@ -2,6 +2,8 @@
 
 import datetime
 from django.db import migrations, models
+from django.utils.timezone import utc
+import django.utils.timezone
 
 
 class Migration(migrations.Migration):
@@ -13,12 +15,13 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterField(
             model_name='video',
-            name='end_date',
-            field=models.DateField(default=datetime.date(2025, 1, 1), verbose_name='Дата конца паказа(включая)'),
+            name='start_date',
+            field=models.DateField(default=django.utils.timezone.now, verbose_name='Дата начала показа (включая)'),
         ),
         migrations.AlterField(
             model_name='video',
-            name='start_date',
-            field=models.DateField(default=datetime.date(2024, 12, 18), verbose_name='Дата начала показа (включая)'),
+            name='end_date',
+            field=models.DateField(default=django.utils.timezone.now, verbose_name='Дата конца показа (включая)'),
         ),
+
     ]

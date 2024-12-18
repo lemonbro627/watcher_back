@@ -32,9 +32,8 @@ class Video(models.Model):
     title = models.CharField(max_length=64, verbose_name='Заголовок')
     start_date = models.DateField(verbose_name='Дата начала показа (включая)', default=timezone.now,
                                   null=False, blank=False, editable=True)
-    end_date = models.DateField(verbose_name='Дата конца паказа(включая)',
-                                default=timezone.now() + timezone.timedelta(days=14), null=False,
-                                blank=False, editable=True)
+    end_date = models.DateField(verbose_name='Дата конца показа (включая)', default=timezone.now,
+                                null=False, blank=False, editable=True)
     freq = models.CharField(max_length=9, choices=VideoFreq, default='MID', verbose_name='Частота показа', null=False,
                             blank=False)
     video_url = models.URLField(verbose_name='Ссылка на видео (только прямые ссылки на mp4)', null=True, blank=False)
