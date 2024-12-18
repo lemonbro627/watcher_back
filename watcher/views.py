@@ -20,7 +20,7 @@ def get_video(request):
     ip = request.META.get('HTTP_X_REAL_IP')
     logger.info(f'Client real ip is {ip}')
     video_list = Video.objects.filter(is_enabled=True, start_date__lte=timezone.now(),
-                                      end_date__gte=timezone.now(), panels__IP__in=ip).all()
+                                      end_date__gte=timezone.now(), panels__IP=ip)
     videos_by_panels = []
     videos_for_rector = []
     for video in video_list:
